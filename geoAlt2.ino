@@ -18,15 +18,16 @@
 
 //////////////////// change your setting here ////////////////////
 
-#define USE_IMPERIAL 1
-#define SHOW_SYSTEM 1
+#define USE_IMPERIAL 1 //1 for imperial + metric screen, 0 for metric only
+#define SHOW_SYSTEM 1  //1 to show debug screens, 0 for deployment
 #define RESET_TPT 0
 
-#define TIME_TO_COMPLETE ((long)1000 * 60 * 15) //time to complete in milliseconds
-#define DM_TO_GO ((int16_t)10 * 10) //goal altitude in decimeters
-#define MAX_ACCEL ((100*DM_TO_GO) / (TIME_TO_COMPLETE / 1000 / 10)) //maximum accelaration in mm/s to prevent cheating
 #define MSGN "S 12" DEG "34.567'" //win message line1
 #define MSGW "E 89" DEG "01.123'" //win message line2
+#define TIME_TO_COMPLETE ((long)1000 * 60 * 15) //time to complete in milliseconds
+#define DM_TO_GO ((int16_t)10 * 10) //goal altitude difference in decimeters
+
+#define MAX_ACCEL ((100*DM_TO_GO) / (TIME_TO_COMPLETE / 1000 / 10)) //maximum accelaration in mm/s to prevent cheating
 #define MIN_TO_COMPLETE (TIME_TO_COMPLETE / 60000) //time to complete in minutes to display in into
 
 //////////////////////////////////////////////////////////////////
@@ -128,7 +129,7 @@ BatteryStatusIcon bsi(&lcd, 0, 1500, 3000);
 AutoPWM contrast(PIN_CONTRAST, 2200, 2800, 0, 70); //based on VCC
 AutoPWM backlight(PIN_BL, 1500, 2300, 0, 96); //based on VBatt
 FancyPrint fp(&lcd);
-GeocachingLogo glogo(&lcd);
+GeocachingLogo glogo(&lcd, 0);
 SystemStatus ss(PIN_BATT_SENSE);
 
 unsigned int vcc = 3300; //main voltage, should be 3300mV
